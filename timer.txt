@@ -1,0 +1,35 @@
+
+void timer1SwPWM(uint8 dutyCycle,uint8 freq){
+    uint16 pre_scale_values[6] = {0, 1, 8, 64, 256, 1024};
+    uint16 pre_scale_of_timer_1 = (uint16)(TCNT1 & 0x0007);
+    pre_scale_of_timer_1 = pre_scale_values[5];
+    uint64 ocr_calculation = (16000000/ (pre_scale_of_timer_1*2*((freq)))) - 1;
+    uint64 high_calculation = ((uint64)dutyCycle * ocr_calculation) / 100;
+    uint16 OCR1_value = (uint16)(ocr_calculation);
+    high_period = (uint16)(high_calculation);
+    low_period = OCR1_value - high_period;
+//    if (soft_pwm_timer_1 == 1){
+//        Led_On(LED_0);
+//    }
+//    else if (soft_pwm_timer_1 == 0){
+//        Led_Off(LED_0);
+//    }
+//    if ((soft_pwm_timer_1 == 1) && (TIFR & 0x10)){
+//        soft_pwm_timer_1 = 0;
+//        TIFR = TIFR | 0x10;
+//        OCR1A = high_period;
+//        OCR1B = high_period;
+//        TCCR1 = (TCCR1 & 0x3FFF) | (uint16)T1_OC1A_CLEAR | (uint16)T1_OC1B_CLEAR;
+//    }
+//    else if((soft_pwm_timer_1 == 0) && (TIFR & 0x10)){
+//        soft_pwm_timer_1 = 1;
+//        TIFR = TIFR | 0x10;
+//        OCR1A = low_period;
+//        OCR1B = low_period;
+//        TCCR1 = (TCCR1 & 0x3FFF) | (uint16)T1_OC1A_SET | (uint16)T1_OC1B_SET;
+//    }
+//    if ((TIFR & 0x08)){
+//        TIFR = TIFR | 0x08;
+//    }
+
+}
